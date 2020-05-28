@@ -6,6 +6,6 @@ Express, ffmpeg
 
 simple recommendation in modules/analytica
 
-server - https://github.com/w1nteRR/movie_server
+web - https://github.com/w1nteRR/movie__front
 
 mobile - https://github.com/w1nteRR/movie_mobile
