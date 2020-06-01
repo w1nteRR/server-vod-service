@@ -12,8 +12,15 @@ router.put('/playlists/create', async(req, res) => {
         playlistName: name,
         films: [] 
     }
-    
+
     try {
+
+        if(!name.trim()) {
+            return res.status(404).json({
+                message: 'Playlist name cant be empty'
+            })
+        }
+
         const playlistName = await UserPlaylist.find({
             playlists: {
                 $elemMatch: {
@@ -127,7 +134,7 @@ router.put('/playlists/edit', async(req, res) => {
 })
 
 router.put('/playlists/add', async(req, res) => {
-    const { filmId, userId, playlistId, filmImg } = req.body
+    const { filmId, userId, playlistId } = req.body
 
     try {
         const playlist = await UserPlaylist.findOne({
@@ -156,12 +163,12 @@ router.put('/playlists/add', async(req, res) => {
             }, 
             { $push: {'playlists.$.films': {
                 _id: mongoose.Types.ObjectId(filmId),
-                img: filmImg
+                img: `/static/${filmId}/poster.jpg`
             }}
         })
 
         res.status(200).json({
-            message: 'ok'
+            message: `Film added to playlist`
         })
 
     } catch (err) {
