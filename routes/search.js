@@ -29,7 +29,7 @@ router.get('/search/:text', async(req, res) => {
              
         res.status(200).json({
             message: 'Search ok',
-            data: films
+            films
         })
 
     } catch (err) {
@@ -41,12 +41,9 @@ router.get('/search/:text', async(req, res) => {
 
 router.get('/search/actors/:text', async(req, res) => {
 
-    console.log(req.params.text.length)
-
     try {
         let pattern = `${req.params.text}`;
         let regex = new RegExp(`${pattern}`, 'i')
-        console.log(regex)
 
         if(req.params.text.length < 3) {
             return res.status(400).json({
@@ -69,48 +66,32 @@ router.get('/search/actors/:text', async(req, res) => {
 
 router.post('/search/tags', async(req, res) => {
 
-    const pretty = obj => {
-        for( let key in obj ) {
-            if(obj[key].length === 0) {
-                delete obj[key]
-            }
-        }
-        return obj
-    }
-    const query = pretty(req.body)
-    
-    if(!Object.keys(query).length) {
-        return res.status(404).json({
-            message: 'Choose tags'
-        })
-    }
-
-    const mergeGenr = () => {
-        if(query.genr) {
+    const prettyGenres = () => {
+        if(req.body.genr) {
             let test = {
                 genr: {
-                    $in: query.genr
+                    $in: req.body.genr
                 }
             }
-            return Object.assign({}, query, test)  
+            return Object.assign({}, req.body, test)  
         } else {
-            return query
+            return req.body
         }
     }
 
-    const ready = mergeGenr()
+    const query = prettyGenres()
 
     try {
         const projection = { 
             _id: 1,
-            img: 1
+            img: 1,
+            name: 1
         }
-        const films = await Film.find(ready, projection)
- 
-        res.json(films)
-        
+        const films = await Film.find(query, projection)
+         
         res.status(200).json({
-            message: 'Search ok'
+            message: 'Search ok',
+            films
         })
 
     } catch (err) {
