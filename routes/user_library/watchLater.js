@@ -75,4 +75,57 @@ router.get('/later/:id', async(req, res) => {
     }
 })
 
+router.post('/later/status', async(req, res) => {
+    const { filmId, userId } = req.body
+
+    try {
+        const watchLater = await UserPlaylist.aggregate([
+            {
+                $match: {
+                    userId: mongoose.Types.ObjectId(userId),
+                    watchLater: mongoose.Types.ObjectId(filmId)
+                }
+            }
+        ])
+
+        if(watchLater.length) {
+            return res.status(200).json({
+                isLater: true
+            })
+        }
+     
+        res.status(200).json({
+            isLater: false
+        })
+
+    } catch (err) {
+        res.status(400).json({
+            message: 'Something went wrong'
+        })
+    }
+})
+
+router.put('/watch_later/remove', async(req, res) => {
+    const { filmId, userId } = req.body
+
+    try {
+        
+        await UserPlaylist.updateOne(
+            { 
+                userId: mongoose.Types.ObjectId(userId)
+            }, 
+            { $pull: {'watchLater': mongoose.Types.ObjectId(filmId) }
+        })
+
+        res.status(200).json({
+            message: 'Film has been removed from watch later'
+        })
+
+    } catch (err) {
+        res.status(400).json({
+            message: 'Something went wrong'
+        })
+    }
+})
+
 module.exports = router
