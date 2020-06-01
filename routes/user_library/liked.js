@@ -39,7 +39,7 @@ router.put('/liked/add', async(req, res) => {
         })
 
         res.status(200).json({
-            message: `${filmId} added to liked`
+            message: `Film added to liked`
         })
 
     } catch (err) {
@@ -68,7 +68,7 @@ router.put('/liked/remove', async(req, res) => {
         })
 
         res.status(200).json({
-            message: `${filmId} removed`
+            message: `Film removed from liked`
         })
 
     } catch (err) {
@@ -118,7 +118,7 @@ router.put('/dislike/add', async(req, res) => {
 
         if (dislikes.length) {
             return res.status(404).json({
-                message: `${filmId} already liked`
+                message: `Film already disliked`
             })
         }
 
@@ -137,7 +137,7 @@ router.put('/dislike/add', async(req, res) => {
         })
 
         res.status(200).json({
-            message: `${filmId} added to liked`
+            message: `Ok, we take into account`
         })
 
     } catch (err) {
@@ -166,7 +166,7 @@ router.put('/dislike/remove', async(req, res) => {
         })
 
         res.status(200).json({
-            message: `${filmId} removed`
+            message: `Film removed from disliked`
         })
 
     } catch (err) {
