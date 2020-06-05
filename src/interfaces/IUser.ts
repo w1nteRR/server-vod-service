@@ -9,5 +9,10 @@ export interface IUserSignUp {
     email: string,
     username: string,
     password: string,
-    confirm_password: string
+    confirmPassword: string
+}
+
+export interface IUserSignIn {
+    email: string,
+    password: string
 }
