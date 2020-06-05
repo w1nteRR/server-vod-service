@@ -11,3 +11,4 @@ if(env.error) {
 export const PORT = process.env.PORT || ""
 export const mongoURL = process.env.MONGO_URL || ""
 export const omdbKey = process.env.OMDB_KEY || ""
+export const secretToken = process.env.SECRET_TOKEN || ""
