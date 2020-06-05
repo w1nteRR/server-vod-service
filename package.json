@@ -2,18 +2,19 @@
   "name": "movie",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.ts",
   "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js"
+    "start": "node dist/app.js",
+    "server": "nodemon",
+    "tsc": "tsc"
   },
   "author": "Mykola Vatamanyuk",
   "license": "ISC",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "bcryptjs": "^2.4.3",
-    "config": "^3.2.4",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fluent-ffmpeg": "^2.1.2",
     "joi": "^14.3.1",
@@ -26,6 +27,11 @@
     "tree-kill": "^1.2.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "@types/express": "^4.17.6",
+    "@types/mongoose": "^5.7.22",
+    "@types/node": "^14.0.11",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
   }
 }
