@@ -7,6 +7,8 @@ import { userSignUpValidation } from '../utils/validations'
 import { secretToken } from '../config/config'
 
 import User from '../models/User'
+import Activity from '../models/Activity'
+import Library from '../models/Library'
 
 export function Auth () {
     return {
@@ -28,6 +30,8 @@ export function Auth () {
                 })
 
                 await newUser.save()
+                await new Activity({ userId: newUser._id }).save()
+                await new Library({ userId: newUser._id }).save()
 
             } catch (err) {
                 throw new Error(err)
