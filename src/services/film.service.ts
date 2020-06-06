@@ -8,7 +8,8 @@ import Rating from '../models/Rating'
 
 export function FilmService () {
     return {
-        ...filmManage()
+        ...filmManage(),
+        ...filmGet()
     }
 }
 
@@ -54,6 +55,75 @@ function filmManage () {
             try {
 
                 await Film.findByIdAndUpdate(_id, {...film})
+
+            } catch (err) {
+                throw new Error(err)
+            }
+        }
+    }
+}
+
+function filmGet () {
+    return {
+        getById: async (_id: string) => {
+            try {
+                const film = await Film.aggregate([
+                    {
+                        $match: {
+                          _id: Types.ObjectId(_id)
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: 'actors',
+                            let: {
+                                id: Types.ObjectId(_id)
+                            },
+                            pipeline: [
+                                { $unwind: "$films" },
+                                { $match: { $expr: { $eq: [ "$films._id",  "$$id" ] }, }},
+                            ],
+                            as: 'cast'
+                    }
+                }
+            ])
+
+            const projection = { 
+                _id: 1,
+                img: 1,
+                name: 1
+            }
+            const similar = await Film.find({
+                tags: {
+                    $in: film[0].tags
+                }
+            }, projection)
+
+            const filtredSimilar = similar.filter(similar => similar.name !== film[0].name)                
+
+            return {
+                film,
+                similar: filtredSimilar
+            }
+
+            } catch (err) {
+                throw new Error(err)
+            }
+        },
+        getAll: async () => {
+            const projection = {
+                _id: 1,
+                name: 1,
+                describe: 1,
+                img: 1,
+                type: 1
+            }
+
+            try {
+            
+                const films = await Film.find({}, projection)
+
+                return films
 
             } catch (err) {
                 throw new Error(err)
