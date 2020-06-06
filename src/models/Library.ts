@@ -1,6 +1,7 @@
-const { Schema, model } = require('mongoose')
+import mongoose, { Schema, Document } from 'mongoose'
+import { ILibrary } from '../interfaces/ILibrary'
 
-const schema = new Schema({
+const LibrarySchema = new Schema({
 	userId: {
 		type: Schema.Types.ObjectId, 
 		required: true, 
@@ -31,4 +32,4 @@ const schema = new Schema({
     timestamps: true
 })
 
-module.exports = model('UserPlaylist', schema)
+export default mongoose.model<ILibrary & Document>('Library', LibrarySchema)
