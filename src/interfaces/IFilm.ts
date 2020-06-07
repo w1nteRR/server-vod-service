@@ -21,7 +21,6 @@ export interface IFilm {
 }
 
 export interface IFilmCreate {
-    _id: Types.ObjectId,
     name: string,
     year: number,
 	genr: Array<string>,
@@ -36,4 +35,14 @@ export interface IFilmCreate {
     company: string,
     tags: Array<string>,
     series: Array<object>
+}
+
+export interface IEpisode {
+    filmId: string,
+    name: string,
+    number: number,
+    season: number,
+    describe: string,
+    release: string,
+    duration: string
 }
