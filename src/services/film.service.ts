@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { Types } from 'mongoose'
 
-import { IFilmCreate } from '../interfaces/IFilm'
+import { IFilmCreate, IEpisode } from '../interfaces/IFilm'
 
 import Film from '../models/Film'
 import Rating from '../models/Rating'
@@ -9,7 +9,8 @@ import Rating from '../models/Rating'
 export function FilmService () {
     return {
         ...filmManage(),
-        ...filmGet()
+        ...filmGet(),
+        ...seriesManage()
     }
 }
 
@@ -42,7 +43,7 @@ function filmManage () {
         delete: async (_id: string) => {
             try {
 
-                await Film.findByIdAndRemove(_id)
+                await Film.deleteOne({ _id })
                 await Rating.deleteOne({ filmId: Types.ObjectId(_id) })
                 await fs.promises.rmdir(`public/${_id}`)
 
@@ -54,7 +55,7 @@ function filmManage () {
         update: async (_id: string, film: IFilmCreate) => {
             try {
 
-                await Film.findByIdAndUpdate(_id, {...film})
+                await Film.updateOne({ _id }, {...film})
 
             } catch (err) {
                 throw new Error(err)
@@ -125,6 +126,31 @@ function filmGet () {
 
                 return films
 
+            } catch (err) {
+                throw new Error(err)
+            }
+        }
+    }
+}
+
+function seriesManage () {
+    return {
+        createEpisode: async (filmId: string, episode: IEpisode) => {
+            try {
+                const episodeUpdate = await Film.updateOne({
+                    _id: Types.ObjectId(filmId)
+                },
+                {
+                    $push: {
+                        series: {
+                            ...episode,
+                            _id: Types.ObjectId(),
+                        }
+                    }
+                })
+
+                if(episodeUpdate.n > 0) throw new Error('Error')
+                
             } catch (err) {
                 throw new Error(err)
             }

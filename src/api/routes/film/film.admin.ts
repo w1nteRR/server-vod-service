@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express'
 
 import { FilmService } from '../../../services/film.service'
 
-import { IFilmCreate } from '../../../interfaces/IFilm'
+import { IFilmCreate, IEpisode } from '../../../interfaces/IFilm'
 
 const router = Router()
 
@@ -49,6 +49,23 @@ export const filmAdminRouter = (app: Router) => {
         } catch (err) {
             res.status(400).json({
                 message: 'Something went wrong'
+            })
+        }
+    })
+
+    router.post('/episode/create', async(req: Request, res: Response) => {
+        const { filmId, episode } = req.body
+        try {
+        
+            await FilmService().createEpisode(filmId, episode as IEpisode)
+            
+            return res.status(200).json({
+                message: 'Episode created'
+            })
+
+        } catch (err) {
+            res.status(400).json({
+                message: 'Someting went wrong'
             })
         }
     })
