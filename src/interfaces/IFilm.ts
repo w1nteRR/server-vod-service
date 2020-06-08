@@ -44,5 +44,6 @@ export interface IEpisode {
     season: number,
     describe: string,
     release: string,
-    duration: string
+    duration: string,
+    img: string
 }

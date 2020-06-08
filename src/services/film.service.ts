@@ -81,7 +81,7 @@ function filmGet () {
                                 id: Types.ObjectId(_id)
                             },
                             pipeline: [
-                                { $unwind: "$films" },
+                                { $unwind: "$films" }, 
                                 { $match: { $expr: { $eq: [ "$films._id",  "$$id" ] }, }},
                             ],
                             as: 'cast'
@@ -136,22 +136,28 @@ function filmGet () {
 function seriesManage () {
     return {
         createEpisode: async (filmId: string, episode: IEpisode) => {
+            
+            const episodeId = Types.ObjectId()
+            
             try {
-                const episodeUpdate = await Film.updateOne({
-                    _id: Types.ObjectId(filmId)
+                episode.img = `/static/${filmId}/${episodeId}/poster.jpg`
+
+                await Film.updateOne({
+                    _id: Types.ObjectId(filmId),
                 },
                 {
                     $push: {
                         series: {
                             ...episode,
-                            _id: Types.ObjectId(),
+                            _id: episodeId
                         }
                     }
                 })
-
-                if(episodeUpdate.n > 0) throw new Error('Error')
+                
+                await fs.promises.mkdir(`public/${filmId}/${episodeId}`)
                 
             } catch (err) {
+                console.log(err)
                 throw new Error(err)
             }
         }

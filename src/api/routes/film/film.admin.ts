@@ -65,7 +65,7 @@ export const filmAdminRouter = (app: Router) => {
 
         } catch (err) {
             res.status(400).json({
-                message: 'Someting went wrong'
+                message: 'Something went wrong'
             })
         }
     })
