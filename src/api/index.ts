@@ -7,6 +7,7 @@ import { castRouter } from './routes/cast/cast'
 
 import { filmAdminRouter } from './routes/film/film.admin'
 import { castAdminRouter } from './routes/cast/cast.admin'
+import { searchRouter } from './routes/search'
 
 export const routes = () => {
 	const app = Router()
@@ -14,6 +15,7 @@ export const routes = () => {
 	omdbRouter(app),
 	filmRouter(app),
 	castRouter(app),
+	searchRouter(app),
 	
 	filmAdminRouter(app),
 	castAdminRouter(app)
