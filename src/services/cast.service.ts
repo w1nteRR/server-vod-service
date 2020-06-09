@@ -7,7 +7,8 @@ import Actor from '../models/Actor'
 export function CastService () {
 
     return {
-        castManage
+        castManage,
+        ...castGet()
     }
 }
 
@@ -84,6 +85,33 @@ function castManage (actor: IActorManage) {
                         }
                     }
                 )
+
+            } catch (err) {
+                return new Error(err)
+            }
+        }
+    }
+}
+
+function castGet () {
+    return {
+        getActorById: async (actorId: string) => {
+            try {
+
+                const actor = await Actor.findOne({ _id: Types.ObjectId(actorId) })
+                
+                return actor
+
+            } catch (err) {
+                return new Error(err)
+            }
+        },
+
+        getCast: async () => {
+            try {
+
+                const cast = await Actor.find({})
+                return cast
 
             } catch (err) {
                 return new Error(err)
