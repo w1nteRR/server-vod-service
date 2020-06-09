@@ -4,6 +4,7 @@ import { omdbRouter } from './routes/omdb'
 
 import { filmRouter } from './routes/film/film'
 import { filmAdminRouter } from './routes/film/film.admin'
+import { castAdminRouter } from './routes/cast/cast.admin'
 
 
 export const routes = () => {
@@ -11,7 +12,9 @@ export const routes = () => {
 	authRouter(app),
 	omdbRouter(app),
 	filmRouter(app),
-	filmAdminRouter(app)
+
+	filmAdminRouter(app),
+	castAdminRouter(app)
 
 	return app
 }
