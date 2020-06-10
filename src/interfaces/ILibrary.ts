@@ -8,3 +8,16 @@ export interface ILibrary {
     watchContinue: Array<object>,
 	dislikes: Array<object>
 }
+
+export interface IPlaylist {
+    id: Types.ObjectId,
+    playlistName: string,
+    films: Array<object>
+}
+
+export interface IPlaylistManage {
+    userId: string,
+    playlistName: string,
+    playlistId: string,
+    filmId: string
+}

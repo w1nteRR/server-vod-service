@@ -8,6 +8,7 @@ import { castRouter } from './routes/cast/cast'
 import { filmAdminRouter } from './routes/film/film.admin'
 import { castAdminRouter } from './routes/cast/cast.admin'
 import { searchRouter } from './routes/search'
+import { playlistRouter } from './routes/library/playlist'
 
 export const routes = () => {
 	const app = Router()
@@ -16,6 +17,7 @@ export const routes = () => {
 	filmRouter(app),
 	castRouter(app),
 	searchRouter(app),
+	playlistRouter(app),
 	
 	filmAdminRouter(app),
 	castAdminRouter(app)
