@@ -21,3 +21,8 @@ export interface IPlaylistManage {
     playlistId: string,
     filmId: string
 }
+
+export interface IWatchLaterManage {
+    userId: string,
+    filmId: string
+}

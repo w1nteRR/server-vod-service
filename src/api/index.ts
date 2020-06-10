@@ -9,17 +9,19 @@ import { filmAdminRouter } from './routes/film/film.admin'
 import { castAdminRouter } from './routes/cast/cast.admin'
 import { searchRouter } from './routes/search'
 import { playlistRouter } from './routes/library/playlist'
+import { watchLaterRouter } from './routes/library/watchLater'
 
 export const routes = () => {
 	const app = Router()
-	authRouter(app),
-	omdbRouter(app),
-	filmRouter(app),
-	castRouter(app),
-	searchRouter(app),
-	playlistRouter(app),
+	authRouter(app)
+	omdbRouter(app)
+	filmRouter(app)
+	castRouter(app)
+	searchRouter(app)
+	playlistRouter(app)
+	watchLaterRouter(app)
 	
-	filmAdminRouter(app),
+	filmAdminRouter(app)
 	castAdminRouter(app)
 
 	return app
