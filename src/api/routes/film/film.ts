@@ -40,7 +40,32 @@ export const filmRouter = (app: Router) => {
             
         } catch (err) {
             res.status(400).json({
-                message: 'Something wen'
+                message: 'Something went wrong'
+            })
+        }
+    })
+
+    router.get('/film/rating/:id', async (req: Request, res: Response) => {
+        try {
+
+            const rating = await FilmService().getRating(req.params.id)
+
+            if(rating instanceof Error) {
+                return res.status(400).json({
+                    message: rating.message
+                })
+            }
+            
+            return res.status(200).json({
+                message: 'Rating',
+                data: {
+                    rating
+                }
+            })
+            
+        } catch (err) {
+            res.status(400).json({
+                message: 'Something went wrong'
             })
         }
     })

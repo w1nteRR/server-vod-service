@@ -129,6 +129,18 @@ function filmGet () {
             } catch (err) {
                 throw new Error(err)
             }
+        },
+        getRating: async (_id: string) => {
+            try {
+
+                const rating = await Rating.findOne({ filmId: _id }, { rating: 1 })
+                if(!rating) return new Error('Wrong film ID')
+                
+                return rating
+
+            } catch (err) {
+                return new Error(err)
+            }
         }
     }
 }
