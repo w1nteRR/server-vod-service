@@ -103,7 +103,7 @@ function filmGet () {
             const filtredSimilar = similar.filter(similar => similar.name !== film[0].name)                
 
             return {
-                film,
+                film: film[0],
                 similar: filtredSimilar
             }
 
@@ -133,10 +133,13 @@ function filmGet () {
         getRating: async (_id: string) => {
             try {
 
-                const rating = await Rating.findOne({ filmId: _id }, { rating: 1 })
+                const rating = await Rating.findOne({ filmId: _id }, { likes: 1, dislikes: 1 })
                 if(!rating) return new Error('Wrong film ID')
                 
-                return rating
+                return {
+                    likes: rating.likes.length,
+                    dislikes: rating.dislikes.length
+                }
 
             } catch (err) {
                 return new Error(err)
