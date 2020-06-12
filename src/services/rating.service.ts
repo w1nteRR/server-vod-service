@@ -37,11 +37,11 @@ function ratingControl () {
                     { $push: { liked: Types.ObjectId(filmId) }
                 })
 
-                await Rating.updateOne(
+                const res = await Rating.updateOne(
                     { 
                         filmId: Types.ObjectId(filmId)
                     }, 
-                    { $push: {'rating.0.likes': Types.ObjectId(userId) }
+                    { $push: {likes: Types.ObjectId(userId) }
                 })
 
             } catch (err) {
@@ -65,7 +65,7 @@ function ratingControl () {
                     { 
                         filmId: Types.ObjectId(filmId)
                     }, 
-                    { $pull: {'rating.0.likes': Types.ObjectId(userId) }
+                    { $pull: {likes: Types.ObjectId(userId) }
                 })
 
             } catch (err) {
@@ -101,7 +101,7 @@ function ratingControl () {
                     { 
                         filmId: Types.ObjectId(filmId)
                     }, 
-                    { $push: {'rating.1.dislikes': Types.ObjectId(userId) }
+                    { $push: {dislikes: Types.ObjectId(userId) }
                 })
 
             } catch (err) {
@@ -124,7 +124,7 @@ function ratingControl () {
                     { 
                         filmId: Types.ObjectId(filmId)
                     }, 
-                    { $pull: {'rating.1.dislikes': Types.ObjectId(userId) }
+                    { $pull: {dislikes: Types.ObjectId(userId) }
                 })
 
             } catch (err) {

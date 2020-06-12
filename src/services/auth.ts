@@ -40,10 +40,10 @@ export function Auth () {
         signin: async (candidate: IUserSignIn) => {
             try {
                 const user = await User.findOne({ email: candidate.email })
-                if(!user) throw new Error('User not found')
+                if(!user) return new Error('User not found')
 
                 const passwordCompare = await bcrypt.compare(candidate.password, user.password)
-                if(!passwordCompare) throw new Error('Wrong password')
+                if(!passwordCompare) return new Error('Wrong password')
 
                 const token = sign({ 
                         userId: user._id
@@ -63,7 +63,7 @@ export function Auth () {
                 }
 
             } catch (err) {
-                throw new Error(err)
+                return new Error(err)
             }
         }
     }

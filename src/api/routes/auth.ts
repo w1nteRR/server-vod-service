@@ -9,12 +9,19 @@ export const authRouter = (app: Router) => {
 
     router.post('/signin', async (req: Request, res: Response) => {
         try {
-            const { token, user } = await Auth().signin(req.body as IUserSignIn)
+            const login = await Auth().signin(req.body as IUserSignIn)
+
+            if(login instanceof Error) {
+                return res.status(400).json({
+                    message: login.message
+                })
+            }
             
             return res.status(200).json({
                 message: 'Sign in ok',
-                token,
-                user
+                token: login.token,
+                username: login.user.username,
+                userId: login.user._id
             })
     
         } catch (err) {

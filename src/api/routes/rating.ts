@@ -8,7 +8,7 @@ const router = Router()
 export const ratingRouter = (app: Router) => {
     app.use('/rating', router)
 
-    router.post('/set-like', async (req: Request, res: Response) => {
+    router.put('/set-like', async (req: Request, res: Response) => {
         try {
 
             const rating = await RatingService().setLike(req.body as IRatingManage)
@@ -31,7 +31,7 @@ export const ratingRouter = (app: Router) => {
         }
     })
 
-    router.post('/remove-like', async (req: Request, res: Response) => {
+    router.put('/remove-like', async (req: Request, res: Response) => {
         try {
 
             const rating = await RatingService().removeLike(req.body as IRatingManage)
@@ -54,7 +54,7 @@ export const ratingRouter = (app: Router) => {
         }
     })
 
-    router.post('/set-dislike', async (req: Request, res: Response) => {
+    router.put('/set-dislike', async (req: Request, res: Response) => {
         try {
 
             const rating = await RatingService().setDislike(req.body as IRatingManage)
@@ -77,7 +77,7 @@ export const ratingRouter = (app: Router) => {
         }
     })
 
-    router.post('/remove-dislike', async (req: Request, res: Response) => {
+    router.put('/remove-dislike', async (req: Request, res: Response) => {
         try {
 
             const rating = await RatingService().removeDislike(req.body as IRatingManage)
@@ -90,6 +90,23 @@ export const ratingRouter = (app: Router) => {
 
             return res.status(200).json({
                 message: 'Dislike removed'
+            })
+
+
+        } catch (err) {
+            res.status(400).json({
+                message: 'Something went wrong'
+            })
+        }
+    })
+
+    router.post('/status', async (req: Request, res: Response) => {
+        try {
+
+            const rating = await RatingService().status(req.body as IRatingManage)
+        
+            return res.status(200).json({
+                rating
             })
 
 

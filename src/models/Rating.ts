@@ -7,13 +7,13 @@ const RatingSchema = new Schema({
 		required: true, 
 		unique: true
 	},
-    likes: {
+	likes: {
 		type: Array,
-		required: false
+		required: true
 	},
 	dislikes: {
 		type: Array,
-		required: false
+		required: true
 	}
 })
 

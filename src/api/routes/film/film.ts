@@ -14,10 +14,8 @@ export const filmRouter = (app: Router) => {
             
             return res.status(200).json({
                 message: "Film found",
-                data: {
-                    film,
-                    similar
-                }
+                film,
+                similar
             })
 
         } catch (err) {
@@ -33,9 +31,7 @@ export const filmRouter = (app: Router) => {
             const films = await FilmService().getAll()
             return res.status(200).json({
                 message: 'Films found',
-                data: {
-                    films
-                }
+                films
             })
             
         } catch (err) {
@@ -58,9 +54,8 @@ export const filmRouter = (app: Router) => {
             
             return res.status(200).json({
                 message: 'Rating',
-                data: {
-                    rating
-                }
+                rating
+                    
             })
             
         } catch (err) {

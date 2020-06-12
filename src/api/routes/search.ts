@@ -20,9 +20,7 @@ export const searchRouter = (app: Router) => {
             }
            
             return res.status(200).json({
-                data: {
-                    films
-                }
+                films
             })
 
         } catch (err) {
@@ -44,9 +42,7 @@ export const searchRouter = (app: Router) => {
             }
 
             return res.status(200).json({
-                data: {
-                    films
-                }
+                films
             })
 
         } catch (err) {
@@ -68,9 +64,7 @@ export const searchRouter = (app: Router) => {
             }
 
             return res.status(200).json({
-                data: {
-                    actors
-                }
+                actors
             })
 
         } catch (err) {
