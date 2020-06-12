@@ -12,6 +12,7 @@ import { playlistRouter } from './routes/library/playlist'
 import { watchLaterRouter } from './routes/library/watchLater'
 import { likedRouter } from './routes/library/liked'
 import { ratingRouter } from './routes/rating'
+import { userRouter } from './routes/user'
 
 export const routes = () => {
 	const app = Router()
@@ -24,6 +25,7 @@ export const routes = () => {
 	watchLaterRouter(app)
 	likedRouter(app)
 	ratingRouter(app)
+	userRouter(app)
 	
 	filmAdminRouter(app)
 	castAdminRouter(app)
