@@ -5,3 +5,8 @@ export interface IRating {
     likes: Array<Types.ObjectId>,
     dislikes: Array<Types.ObjectId>
 }
+
+export interface IRatingManage {
+    filmId: string,
+    userId: string
+}
