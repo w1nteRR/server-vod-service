@@ -66,22 +66,33 @@ function get () {
     return {
         getList: async (userId: string) => {
             try {
-                // const data = await Library.aggregate([
-                //     {
-                //         $match: {
-                //             userId: Types.ObjectId(userId)
-                //         }
-                //     },
-                //     {
-                //         $lookup: {
-                //             from: 'films',
-                //             localfield: 'watchLater',
-                //             foreignField: '_id',
-                //             as: 'list'
-                //         }
-                //     }
-                // ])
-                // console.log(data)
+                const watchLaterList = await Library.aggregate([
+                    {
+                        $match: {
+                            userId: Types.ObjectId(userId)
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: 'films',
+                            localField: 'watchLater',
+                            foreignField: '_id',
+                            as: 'watchLaterLook'
+                        }
+                    },
+                    {
+                        $project: {
+                            watchLaterLook: {
+                                name: 1,
+                                img: 1,
+                                _id: 1
+                            }
+                        }
+                    }
+                ])
+
+                return watchLaterList[0].watchLaterLook
+                
             } catch (err) {
                 return new Error(err)
             }

@@ -130,9 +130,11 @@ function playlistGet () {
     return {
         userPlaylists: async (userId: string) => {
             try {
-                await Library.findOne({
+                const playlists = await Library.findOne({
                     userId: Types.ObjectId(userId)
                 }, { playlists: 1 })
+
+                return playlists
 
             } catch (err) {
                 return new Error(err)

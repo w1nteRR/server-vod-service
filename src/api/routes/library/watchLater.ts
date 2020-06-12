@@ -58,15 +58,11 @@ export const watchLaterRouter = (app: Router) => {
 
             if(isWatchLater) {
                 return res.status(200).json({
-                    data: {
-                        watchLater: true   
-                    }
+                    watchLater: true   
                 })
             } else {
                 return res.status(200).json({
-                    data: {
-                        watchLater: false
-                    }
+                    watchLater: false
                 })
             }
 
@@ -80,7 +76,11 @@ export const watchLaterRouter = (app: Router) => {
     router.get('/:userId', async (req: Request, res: Response) => {
         try {
 
-            const isWatchLater = await LibraryService().watchLater().getList(req.params.userId)
+            const watchLaterList = await LibraryService().watchLater().getList(req.params.userId)
+
+            return res.status(200).json({
+                watchLaterList
+            })
 
 
         } catch (err) {

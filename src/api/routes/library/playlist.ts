@@ -31,7 +31,7 @@ export const playlistRouter = (app: Router) => {
         }
     })
 
-    router.post('/playlist/remove', async (req: Request, res: Response) => {
+    router.put('/playlist/remove', async (req: Request, res: Response) => {
         try {
             
             const playlist= await PlaylistService().playlistManage(req.body as IPlaylistManage).remove()
@@ -77,7 +77,7 @@ export const playlistRouter = (app: Router) => {
         }
     })
 
-    router.post('/playlist/add-film', async (req: Request, res: Response) => {
+    router.put('/playlist/add-film', async (req: Request, res: Response) => {
         try {
             
             const playlist = await PlaylistService().playlistManage(req.body as IPlaylistManage).addFilm()
@@ -104,12 +104,14 @@ export const playlistRouter = (app: Router) => {
         try {
 
             const playlists = await PlaylistService().playlistGet().userPlaylists(req.params.userId)
+
+            if(playlists instanceof Error) {
+                return res.status(400).json({
+                    message: playlists.message
+                })
+            }
             
-            return res.status(200).json({
-                data: {
-                    playlists
-                }
-            })
+            return res.status(200).json(playlists)
 
         } catch (err) {
             res.status(400).json({
