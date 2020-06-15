@@ -13,9 +13,12 @@ import { watchLaterRouter } from './routes/library/watchLater'
 import { likedRouter } from './routes/library/liked'
 import { ratingRouter } from './routes/rating'
 import { userRouter } from './routes/user'
+import { playlistMadeRouter } from './routes/video/playlist_made'
 
 export const routes = () => {
+	
 	const app = Router()
+
 	authRouter(app)
 	omdbRouter(app)
 	filmRouter(app)
@@ -26,6 +29,7 @@ export const routes = () => {
 	likedRouter(app)
 	ratingRouter(app)
 	userRouter(app)
+	playlistMadeRouter(app)
 	
 	filmAdminRouter(app)
 	castAdminRouter(app)
