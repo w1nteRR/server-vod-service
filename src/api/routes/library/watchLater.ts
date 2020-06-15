@@ -78,10 +78,7 @@ export const watchLaterRouter = (app: Router) => {
 
             const watchLaterList = await LibraryService().watchLater().getList(req.params.userId)
 
-            return res.status(200).json({
-                watchLaterList
-            })
-
+            return res.status(200).json(watchLaterList)
 
         } catch (err) {
             res.status(400).json({

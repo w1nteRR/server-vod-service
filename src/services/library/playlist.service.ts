@@ -132,7 +132,7 @@ function playlistGet () {
             try {
                 const playlists = await Library.findOne({
                     userId: Types.ObjectId(userId)
-                }, { playlists: 1 })
+                }, { playlists: 1, _id: 0 })
 
                 return playlists
 

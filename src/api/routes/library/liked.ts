@@ -12,11 +12,7 @@ export const likedRouter = (app: Router) => {
 
             const liked = await LibraryService().liked().getLiked(req.params.userId)
             
-            return res.status(200).json({
-                data: {
-                    liked
-                }
-            })
+            return res.status(200).json(liked)
 
         } catch (err) {
             res.status(400).json({
