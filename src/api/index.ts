@@ -15,6 +15,7 @@ import { ratingRouter } from './routes/rating'
 import { userRouter } from './routes/users/user'
 import { playlistMadeRouter } from './routes/video/playlist_made'
 import { userAdminRouter } from './routes/users/user.admin'
+import { uploadRouter } from './routes/uploads/uploads'
 
 export const routes = () => {
 	
@@ -31,6 +32,7 @@ export const routes = () => {
 	ratingRouter(app)
 	userRouter(app)
 	playlistMadeRouter(app)
+	uploadRouter(app)
 	
 	userAdminRouter(app)
 	filmAdminRouter(app)
