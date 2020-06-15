@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express'
-import { UserService } from '../../services/user.service'
+import { UserService } from '../../../services/users/user.service'
 
 
 const router = Router()
@@ -13,9 +13,7 @@ export const userRouter = (app: Router) => {
             const user = await UserService().me(req.params.userId)
     
             return res.status(200).json({
-                data: {
-                    user
-                }
+                user
             })
 
         } catch (err) {
