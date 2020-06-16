@@ -33,7 +33,8 @@ function get () {
                                 name: 1,
                                 img: 1,
                                 wallpaper: 1,
-                                describe: 1
+                                describe: 1,
+                                _id: 1
                             }
                         }
                     }
@@ -60,9 +61,22 @@ function get () {
                         }
                     },
                     {
+                        $lookup: {
+                            from: 'films',
+                            localField: 'films',
+                            foreignField: '_id',
+                            as: 'films'
+                        }
+                    },
+                    {
                         $project: {
                             name: 1,
-                            films: 1
+                            films: {
+                                _id: 1,
+                                name: 1,
+                                img: 1
+                            },
+                            data: 1
                         }
                     },
                     {
@@ -72,6 +86,8 @@ function get () {
                         $limit: 4
                     }
                 ])
+
+                if(!playlists.length) return new Error('End')
                 
                 return playlists
 

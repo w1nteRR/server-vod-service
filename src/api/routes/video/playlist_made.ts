@@ -26,7 +26,10 @@ export const playlistMadeRouter = (app: Router) => {
             
             const playlist = await PlaylistMadeService().getPlaylists(parseInt(req.params.skipVal))
 
-            return res.status(200).json(playlist)
+            if(playlist instanceof Error) return res.status(400).end()
+           
+            res.status(200).json(playlist)
+            
 
         } catch (err) {
             res.status(400).json({
