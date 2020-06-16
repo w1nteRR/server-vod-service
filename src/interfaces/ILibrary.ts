@@ -26,3 +26,9 @@ export interface IWatchLaterManage {
     userId: string,
     filmId: string
 }
+
+export interface IWatchContinue {
+    userId: string,
+    filmId: string,
+    time: number
+}

@@ -16,6 +16,7 @@ import { userRouter } from './routes/users/user'
 import { playlistMadeRouter } from './routes/video/playlist_made'
 import { userAdminRouter } from './routes/users/user.admin'
 import { uploadRouter } from './routes/uploads/uploads'
+import { watchContinueRouter } from './routes/library/watchContinue'
 
 export const routes = () => {
 	
@@ -28,6 +29,7 @@ export const routes = () => {
 	searchRouter(app)
 	playlistRouter(app)
 	watchLaterRouter(app)
+	watchContinueRouter(app)
 	likedRouter(app)
 	ratingRouter(app)
 	userRouter(app)
