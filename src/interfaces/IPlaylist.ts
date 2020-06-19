@@ -1,5 +1,7 @@
 export interface IPlaylist {
     name: string,
     films: Array<string>,
-    isRecommended: Boolean  
+    isRecommended: Boolean,
+    description: string,
+    accuracy: string
 }

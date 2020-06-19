@@ -1,10 +1,16 @@
+import { IAnalisedData } from "../../interfaces/IAnalytica"
+import { IPlaylist } from "../../interfaces/IPlaylist"
+
+import Film from "../../models/Film"
 import Playlist from "../../models/Playlist"
 
 import '../../utils/prototypes'
 
 export function PlaylistMadeService () {
     return {
-        ...get()
+        ...get(),
+        recommendation,
+        ...merge()
     }
 }
 
@@ -91,6 +97,72 @@ function get () {
                 
                 return playlists
 
+            } catch (err) {
+                return new Error(err)
+            }
+        }
+    }
+}
+
+function recommendation (analisedData: IAnalisedData) {
+
+    const genrKey = Object.keys(analisedData.genr)
+    const genrVal = Object.values(analisedData.genr)
+    const tagKey = Object.keys(analisedData.tags)
+
+    return {
+        lowAccuracy: async () => {
+            try {
+
+                const films = await Film.aggregate([
+                    {
+                        $match: {
+                            name: {
+                                $nin: analisedData.films
+                            },
+                            genr: {
+                                $in: genrKey
+                            },
+                            tags: {
+                                $in: tagKey
+                            },
+                        }
+                    },
+                    {
+                        $project: {
+                            name: 1
+                        }
+                    }
+                ])
+
+                const description = `Becouse you was watching ${genrKey} ${genrVal} times`
+
+                const playlist: IPlaylist = {
+                    name: 'Recommended',
+                    films,
+                    description,
+                    isRecommended: true,
+                    accuracy: 'low'
+                }
+                
+                return playlist
+                
+            } catch (err) {
+                return new Error()
+            }
+        }
+    }
+}
+
+function merge () {
+    return {
+        mergeWithRecommendation: async (recPlaylists: Array<any>) => {
+            try {
+                
+                const playlists: any = await get().getPlaylists(0)
+
+                return recPlaylists.concat(playlists)
+                
             } catch (err) {
                 return new Error(err)
             }

@@ -1,7 +1,9 @@
 import { IAnalyticaData } from '../../interfaces/IAnalytica'
 import { objFilter } from '../../utils/utils'
+import { getLikedFilms } from './data'
 
-export async function AnalyticaService (data: IAnalyticaData) {
+
+export function AnalyticaService (data: IAnalyticaData) {
 
     return {
         ...analysis(data)
@@ -46,4 +48,15 @@ function analysis (data: IAnalyticaData) {
             films: liked.map(item => item.name)
         })
     }   
+}
+
+export const defData = async () => {
+    try {
+        const likedData = await getLikedFilms('5edbcedcb094851194622823')
+        return {
+            likedData
+        }
+    } catch (err) {
+        console.log(err)
+    }
 }
