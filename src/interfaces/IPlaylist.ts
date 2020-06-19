@@ -5,3 +5,8 @@ export interface IPlaylist {
     description: string,
     accuracy: string
 }
+
+export interface IPlaylistManage {
+    name: string,
+    films: Array<string>
+}

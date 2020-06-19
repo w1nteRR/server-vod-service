@@ -1,5 +1,7 @@
+import { Types } from "mongoose"
+
 import { IAnalisedData } from "../../interfaces/IAnalytica"
-import { IPlaylist } from "../../interfaces/IPlaylist"
+import { IPlaylist, IPlaylistManage } from "../../interfaces/IPlaylist"
 
 import Film from "../../models/Film"
 import Playlist from "../../models/Playlist"
@@ -10,7 +12,32 @@ export function PlaylistMadeService () {
     return {
         ...get(),
         recommendation,
-        ...merge()
+        ...merge(),
+        ...manage()
+    }
+}
+
+function manage () {
+    return {
+        createPlaylist: async (data: IPlaylistManage) => {
+
+            const films = data.films.map(item => Types.ObjectId(item))
+            
+            try {
+
+                const isNameExists = await Playlist.findOne({ name: data.name })
+                
+                if(isNameExists) return new Error('Playlist already exists')
+
+                const newPlaylist = new Playlist({ name: data.name, films })
+
+                await newPlaylist.save()
+                
+
+            } catch (err) {
+                return new Error(err)
+            }
+        }
     }
 }
 
